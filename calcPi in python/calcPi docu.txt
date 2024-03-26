@@ -1,0 +1,136 @@
+from datetime import datetime
+print(datetime.now())
+2024-03-26 11:46:53.895875
+def calcPi(x):
+     
+    # Initialize denominator
+    k = 1
+    start = datetime.now()
+    # Initialize sum
+    s = 0
+ 
+    for i in range(x):
+ 
+    # even index elements are positive
+        if i % 2 == 0:
+            s += 4/k
+        else:
+            # odd index elements are negative
+            s -= 4/k
+ 
+        # denominator is odd
+        k += 2
+    end = datetime.now()
+    final = start-end
+    print(s)
+    print(f"time taken: {final}")
+
+    
+calcPi(10**3)
+3.140592653839794
+time taken: -1 day, 23:59:59.999002
+import time
+def calcPi(x):
+     
+    # Initialize denominator
+    k = 1
+    start = time.clock()
+    # Initialize sum
+    s = 0
+ 
+    for i in range(x):
+ 
+    # even index elements are positive
+        if i % 2 == 0:
+            s += 4/k
+        else:
+            # odd index elements are negative
+            s -= 4/k
+ 
+        # denominator is odd
+        k += 2
+    end = time.clock()
+    final = end-start
+    print(s)
+    print(f"time taken: {final}")
+
+    
+calcPi(10**2)
+Traceback (most recent call last):
+  File "<pyshell#46>", line 1, in <module>
+    calcPi(10**2)
+  File "<pyshell#45>", line 5, in calcPi
+    start = time.clock()
+AttributeError: module 'time' has no attribute 'clock'
+def calcPi(x):
+     
+    # Initialize denominator
+    k = 1
+    start = time.time()
+    # Initialize sum
+    s = 0
+ 
+    for i in range(x):
+ 
+    # even index elements are positive
+        if i % 2 == 0:
+            s += 4/k
+        else:
+            # odd index elements are negative
+            s -= 4/k
+ 
+        # denominator is odd
+        k += 2
+    end = time.time()
+    final = end-start
+    print(s)
+    print(f"time taken: {final}")
+
+    
+calcPi(10**2)
+3.1315929035585537
+time taken: 0.0
+def calcPi2(x):
+     
+    # Initialize denominator
+    k = 1
+    start = datetime.now()
+    # Initialize sum
+    s = 0
+ 
+    for i in range(x):
+ 
+    # even index elements are positive
+        if i % 2 == 0:
+            s += 4/k
+        else:
+            # odd index elements are negative
+            s -= 4/k
+ 
+        # denominator is odd
+        k += 2
+    end = datetime.now()
+    final = end-start
+    print(s)
+    print(f"time taken: {final}")
+
+    
+calcPi2(10**2)
+3.1315929035585537
+time taken: 0:00:00
+calcPi(10**3)
+3.140592653839794
+time taken: 0.000997781753540039
+calcPi2(10**3)
+3.140592653839794
+time taken: 0:00:00.000998
+calcPi(10**5)
+3.1415826535897198
+time taken: 0.02792525291442871
+calcPi(10**7)
+3.1415925535897915
+time taken: 1.9517822265625
+print(math.pi)
+3.141592653589793
+print(format(math.pi, '.50f'))
+3.14159265358979311599796346854418516159057617187500
