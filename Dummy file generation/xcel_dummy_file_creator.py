@@ -32,3 +32,13 @@ endorcement = {'Management':['Staff','Maintenance','Warehouse','Technician'],
                               'Plumber','Carpenter'],
                'Technician':[],
                'Warehouse':['Inventory','Equipment']}
+
+class UserAuth:
+    def __init__(self, UserID, UserName, Role, Endorsement):
+        self.UserID = UserID
+        self.UserName = UserName
+        self.role = Role
+        self.Endorsement = Endorsement
+
+    
+        
