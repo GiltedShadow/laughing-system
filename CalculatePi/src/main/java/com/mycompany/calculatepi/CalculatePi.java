@@ -4,6 +4,8 @@
 
 package com.mycompany.calculatepi;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Alex
@@ -19,8 +21,9 @@ public class CalculatePi {
         // TODO: add time keeping, Java is already leagues ahead of Python so theres not much need
         // for it but it would be nice to be able to run it
         // TODO: complete compare and tack it to the end of the class
-        System.out.println("Hello World!");
+        // System.out.println("Hello World!");
         // initilize denominator
+        long startTime = System.nanoTime();
         double k = 1;
         // initilize sum
         double s = 0.0;
@@ -39,12 +42,27 @@ public class CalculatePi {
             // denominator is odd
             k+=2;
         }
+        
         System.out.println(s);
-        
-        }
+        long finishTime = System.nanoTime();
+        double elapsedTime = (finishTime-startTime)/1000000000;
+        String timeTracking = String.format("Elapsed time is %s secconds", elapsedTime);
+        System.out.println(timeTracking);
+        compare(s);
+    }
    
-    public static void compare(String[] args) {
-        
+    public static void compare(double number) {
+        String toChange = String.valueOf(number);
+        String[] result = toChange.split("");
+        for(String a : result){
+            System.out.print(a+ ' ');
+        }
+        //LinkedList<Double> result = new LinkedList<>();
+        //while (number>0){
+        //    result.push(number%10);
+        //    number/=10;
+        //}
+        //return result;
         
         /*
     def comparePi(x):
