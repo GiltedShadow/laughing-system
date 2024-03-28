@@ -15,7 +15,7 @@ import java.util.LinkedList;
  */
 public class CalculatePi {
     
-    private double pi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679;
+    private static double useThisPi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679;
     
     public static void main(String[] args) {
         // TODO: add time keeping, Java is already leagues ahead of Python so theres not much need
@@ -52,9 +52,14 @@ public class CalculatePi {
     }
    
     public static void compare(double number) {
+        int accurate = 0;
+        LinkedList<Integer> originalNumber = new LinkedList<Integer>();
         String toChange = String.valueOf(number);
+        String compareThis = String.valueOf(useThisPi);
         String[] result = toChange.split("");
+        String[] compare = compareThis.split("");
         for(String a : result){
+            
             System.out.print(a+ ' ');
         }
         //LinkedList<Double> result = new LinkedList<>();
