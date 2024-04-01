@@ -1,7 +1,8 @@
 import math
 import random
 import xlsxwriter
-
+import csv
+#changed to output .csv
 equipment_id_list = {'HMB':[350,'Ball-peen Hammer', '16 OZ'],
                      'SI':[500,'Soldering Iron','120V 70W'],
                      'MTM':[650,'Multimeter','Fluke'],
@@ -9,7 +10,7 @@ equipment_id_list = {'HMB':[350,'Ball-peen Hammer', '16 OZ'],
                      'PWB':[650,'Power Supply','Benchtop'],
                      'PWW':[350,'Power Supply','5V Wall Wart'],
                      'OSC':[550,'Oscilloscope','2 Port'],
-                     'TPK':[600,'Test Probe','Kit, 25pc'],
+                     'TPK':[600,'Test Probe','Kit - 25pc'],
                      'TPS':[800,'Test Probe','Single'],
                      'LAS':[600,'Logic Analyzer','Small Circuit'],
                      'LAL':[850,'Logic Analyzer','Large Circuit'],
@@ -21,29 +22,28 @@ status_list = {'Checked Out':['Out'],
                'Available':['Primary','Secondary']}
 
 equipmentList = []
+equipmentcsv=[]
 employeeIdSet = set()
 employeeCountNeeded = 8500
 employeeCount = 0
-numberTries=0
-workbook = xlsxwriter.Workbook(f'EquipmentListTest{numberTries}.xlsx')
-worksheet = workbook.add_worksheet('Equipment')
+numberTries=4
+#workbook = xlsxwriter.Workbook(f'EquipmentListTest{numberTries}.xlsx')
+#worksheet = workbook.add_worksheet('Equipment')
 
 row = 0
 col = 0
 
 class EquipmentTable:
-    def __init__(self, EquipmentID, EquipmentName, Description, Status, Location):
-        self.EquipmentID = EquipmentID
+    def __init__(self, EquipmentIDChar, EquipmentIDNum, EquipmentName, Description, Status, Location):
+        self.EquipmentIDChar = EquipmentIDChar
+        self.EquipmentIDNum = EquipmentIDNum
         self.EquipmentName = EquipmentName
         self.Description = Description
         self.Status = Status
         self.Location = Location
         
     def __str__(self):
-        return f"{self.EquipmentID}|{self.EquipmentName}|{self.Description}|{self.Status}|{self.Location}"
-    
-    def __int__(self):
-        return int(self.EquipmentID, self)
+        return f"{self.EquipmentIDChar},{self.EquipmentIDNum},{self.EquipmentName},{self.Description},{self.Status},{self.Location}"
 
 def getStatus():
     coinToss = random.randint(0,50)
@@ -61,15 +61,17 @@ def getLocation(currentStatus):
         return 'Primary'
     else:
         return 'Secondary'
-
+"""
 bold = workbook.add_format({'bold':True})
-worksheet.write(row, col, 'EQUIPMENTID', bold)
-worksheet.write(row, col+1, 'EQUIPMENTNAME', bold)
-worksheet.write(row, col+2, 'DESCRIPTION', bold)
-worksheet.write(row, col+3, 'STATUS', bold)
-worksheet.write(row, col+4, 'LOCATON', bold)
+worksheet.write(row, col, 'EquipmentIDChar', bold)
+worksheet.write(row, col+1, 'EquipmentIDNum', bold)
+worksheet.write(row, col+2, 'EQUIPMENTNAME', bold)
+worksheet.write(row, col+3, 'DESCRIPTION', bold)
+worksheet.write(row, col+4, 'STATUS', bold)
+worksheet.write(row, col+5, 'LOCATON', bold)
 row+=1
-
+"""
+equipmentcsv.append(['EqupmentIDChar','EquipmentIDNum','EquipmentName','Description','Status','Location'])
 for key in equipment_id_list:
     idnumber=1
     while idnumber<=equipment_id_list[key][0]:
@@ -77,20 +79,26 @@ for key in equipment_id_list:
         status =  getStatus()
         fullId.append(key)
         fullId.append('{:03d}'.format(idnumber))       
-        equip = EquipmentTable(''.join(fullId), equipment_id_list[key][1],  equipment_id_list[key][2], status, getLocation(status))
-
+        equip = EquipmentTable(key, idnumber, equipment_id_list[key][1],  equipment_id_list[key][2], status, getLocation(status))
         equipmentList.append(equip)
         idnumber+=1
-        strEquip = [x for x in str(equip).split('|')]
-        for item in strEquip:
-            worksheet.write(row, col, item)
-            col +=1
-        col=0
-        row+=1
-    
+        equipmentcsv.append([key, '{:03d}'.format(idnumber), equipment_id_list[key][1],  equipment_id_list[key][2], status, getLocation(status)])
+        #strEquip = [x for x in str(equip).split('|')]
+        #for item in strEquip:
+        #    worksheet.write(row, col, item)
+        #    col +=1
+        #col=0
+        #row+=1
+
+with open(f'EquipmentListTest{numberTries}.csv', 'w') as csvFile:
+    csvwriter = csv.writer(csvFile)
+    csvwriter.writerows(equipmentcsv)
+
+
+
 #print(employeeList)
 #for _ in employeeList:
     #print(_)
 #    print(str(_))
-
-workbook.close()
+csvFile.close()
+#workbook.close()
