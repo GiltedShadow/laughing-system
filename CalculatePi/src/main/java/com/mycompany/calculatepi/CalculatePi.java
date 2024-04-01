@@ -5,7 +5,9 @@
 package com.mycompany.calculatepi;
 
 import java.util.LinkedList;
-
+import java.math.BigDecimal;
+import java.math.BigInteger;
+        
 /**
  *
  * @author Alex
@@ -14,9 +16,8 @@ import java.util.LinkedList;
  * then compare to see how many digits are accurate
  */
 public class CalculatePi {
-    
-    private static double useThisPi = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679;
-    
+    BigDecimal useThisPi = new BigDecimal(3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
+    private static String stringUseThisPi = String.format("%.100f", 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
     public static void main(String[] args) {
         // TODO: add time keeping, Java is already leagues ahead of Python so theres not much need
         // for it but it would be nice to be able to run it
@@ -24,11 +25,11 @@ public class CalculatePi {
         // System.out.println("Hello World!");
         // initilize denominator
         long startTime = System.nanoTime();
-        double k = 1;
+        BigDecimal k = new BigDecimal(1);
         // initilize sum
-        double s = 0.0;
+        BigDecimal s = new BigDecimal(0.0);
         
-        for (long i=0; i<10000000000L; i++) {
+        for (long i=0; i<1000000000L; i++) {
             //System.out.println("test");
             // even index elements are positive
             if (i%2==0){
@@ -53,15 +54,30 @@ public class CalculatePi {
    
     public static void compare(double number) {
         int accurate = 0;
-        LinkedList<Integer> originalNumber = new LinkedList<Integer>();
+        LinkedList<String> originalNumber = new LinkedList<String>();
+        LinkedList<String> PiToCompare = new LinkedList<String>();
         String toChange = String.valueOf(number);
-        String compareThis = String.valueOf(useThisPi);
+        String compareThis = String.format("%.100f", useThisPi);
         String[] result = toChange.split("");
-        String[] compare = compareThis.split("");
+        String[] compare = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679".split("");
         for(String a : result){
-            
-            System.out.print(a+ ' ');
+            //pulls each int in line from the resulting number from CalculatePi(@number)
+            //then removes the .
+            if (!".".equals(a)){
+                originalNumber.add(a);
+            }
         }
+        for(String b : compare){
+            //pulls each int in line from the resulting number from 100 digits of pi
+            //then removes the .
+            if (!".".equals(b)){
+                PiToCompare.add(b);
+            }
+        }
+        System.out.println(useThisPi);
+        System.out.println(stringUseThisPi);
+        System.out.println(originalNumber);
+        System.out.println(PiToCompare);
         //LinkedList<Double> result = new LinkedList<>();
         //while (number>0){
         //    result.push(number%10);
