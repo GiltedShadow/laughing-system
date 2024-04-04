@@ -3,6 +3,12 @@ import random
 import xlsxwriter
 import csv
 #changed to output .csv
+
+"""
+Equipment list for generation - 
+formatted as:
+short ID code (main description):[number needed, 'item name', 'item description']
+"""
 equipment_id_list = {'HMB':[350,'Ball-peen Hammer', '16 OZ'],
                      'SI':[500,'Soldering Iron','120V 70W'],
                      'MTM':[650,'Multimeter','Fluke'],
@@ -18,6 +24,10 @@ equipment_id_list = {'HMB':[350,'Ball-peen Hammer', '16 OZ'],
                      'TL5':[450,'Test Light','5V'],
                      'TL3':[450,'Test Light','3V'],
                      'CTL':[750,'Continuity Tester','Low Current']}
+
+# Status and location list
+# formatted as:
+# 'status':['location1','location2','location3']
 status_list = {'Checked Out':['Out'],
                'Available':['Primary','Secondary']}
 
@@ -27,8 +37,7 @@ employeeIdSet = set()
 employeeCountNeeded = 8500
 employeeCount = 0
 numberTries=4
-#workbook = xlsxwriter.Workbook(f'EquipmentListTest{numberTries}.xlsx')
-#worksheet = workbook.add_worksheet('Equipment')
+
 
 row = 0
 col = 0
@@ -43,9 +52,11 @@ class EquipmentTable:
         self.Location = Location
         
     def __str__(self):
+        # CSV format for any returning strings
         return f"{self.EquipmentIDChar},{self.EquipmentIDNum},{self.EquipmentName},{self.Description},{self.Status},{self.Location}"
 
 def getStatus():
+    # tosses a coin to decide status
     coinToss = random.randint(0,50)
     if coinToss %2 == 0:
         return 'Checked Out'
@@ -54,6 +65,7 @@ def getStatus():
     
 
 def getLocation(currentStatus):
+    # flip a coin to decide status of returned equipments
     coinToss = random.randint(0,50)
     if currentStatus == 'Checked Out':
         return 'Out'
@@ -61,16 +73,8 @@ def getLocation(currentStatus):
         return 'Primary'
     else:
         return 'Secondary'
-"""
-bold = workbook.add_format({'bold':True})
-worksheet.write(row, col, 'EquipmentIDChar', bold)
-worksheet.write(row, col+1, 'EquipmentIDNum', bold)
-worksheet.write(row, col+2, 'EQUIPMENTNAME', bold)
-worksheet.write(row, col+3, 'DESCRIPTION', bold)
-worksheet.write(row, col+4, 'STATUS', bold)
-worksheet.write(row, col+5, 'LOCATON', bold)
-row+=1
-"""
+# CSV update list, using only CSV style saves
+    #this adds the first row
 equipmentcsv.append(['EqupmentIDChar','EquipmentIDNum','EquipmentName','Description','Status','Location'])
 for key in equipment_id_list:
     idnumber=1
@@ -83,22 +87,13 @@ for key in equipment_id_list:
         equipmentList.append(equip)
         idnumber+=1
         equipmentcsv.append([key, '{:03d}'.format(idnumber), equipment_id_list[key][1],  equipment_id_list[key][2], status, getLocation(status)])
-        #strEquip = [x for x in str(equip).split('|')]
-        #for item in strEquip:
-        #    worksheet.write(row, col, item)
-        #    col +=1
-        #col=0
-        #row+=1
+        #adding each remaining row
+        #do not need the class creation for this anymore
+        
 
+#add all items from the CSV list to the .csv file
 with open(f'EquipmentListTest{numberTries}.csv', 'w') as csvFile:
     csvwriter = csv.writer(csvFile)
     csvwriter.writerows(equipmentcsv)
 
-
-
-#print(employeeList)
-#for _ in employeeList:
-    #print(_)
-#    print(str(_))
 csvFile.close()
-#workbook.close()
