@@ -22,9 +22,14 @@ public class LearningJava {
         
         
         System.out.println("Hello World!");
+        takeASlice(name, 2);
     }
     
     public static void addExclimationPoint(String s){
         System.out.println(s + "!");
+    }
+    
+    public static void takeASlice (String s, int i) {
+        System.out.println(String.format("The %o letter in %s is %s", i+1, s, s.charAt(i)));
     }
 }
