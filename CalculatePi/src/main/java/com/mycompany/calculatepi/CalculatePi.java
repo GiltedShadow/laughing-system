@@ -7,6 +7,7 @@ package com.mycompany.calculatepi;
 import java.util.LinkedList;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
         
 /**
  *
@@ -16,7 +17,7 @@ import java.math.BigInteger;
  * then compare to see how many digits are accurate
  */
 public class CalculatePi {
-    BigDecimal useThisPi = new BigDecimal(3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
+    public static BigDecimal useThisPi = new BigDecimal(3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
     private static String stringUseThisPi = String.format("%.100f", 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
     public static void main(String[] args) {
         // TODO: add time keeping, Java is already leagues ahead of Python so theres not much need
@@ -25,23 +26,31 @@ public class CalculatePi {
         // System.out.println("Hello World!");
         // initilize denominator
         long startTime = System.nanoTime();
+        //double k = 1;
         BigDecimal k = new BigDecimal(1);
         // initilize sum
+        //double s = 0.0;
         BigDecimal s = new BigDecimal(0.0);
+        // init constants
+        BigDecimal four = new BigDecimal(4);
+        BigDecimal two = new BigDecimal(2);
         
         for (long i=0; i<1000000000L; i++) {
             //System.out.println("test");
             // even index elements are positive
             if (i%2==0){
-                s+=(4/k);
+                //s+=(4/k);
+                s = s.add(four.divide(k, 50, RoundingMode.CEILING));
             }
             // odd elements are negative
             else{
-                s-=(4/k);
+                //s-=(4/k);
+                s = s.subtract(four.divide(k, 50, RoundingMode.CEILING));
             }
             
             // denominator is odd
-            k+=2;
+            k = k.add(two);
+            //k+=2;
         }
         
         System.out.println(s);
@@ -52,7 +61,7 @@ public class CalculatePi {
         compare(s);
     }
    
-    public static void compare(double number) {
+    public static void compare(BigDecimal number) {
         int accurate = 0;
         LinkedList<String> originalNumber = new LinkedList<String>();
         LinkedList<String> PiToCompare = new LinkedList<String>();
@@ -74,10 +83,19 @@ public class CalculatePi {
                 PiToCompare.add(b);
             }
         }
+        for(int x=0;x<originalNumber.size();x++){
+            if(originalNumber.get(x).equals(PiToCompare.get(x))){
+                accurate +=1;
+            }
+            else{
+                break;
+            }
+        }
         System.out.println(useThisPi);
         System.out.println(stringUseThisPi);
         System.out.println(originalNumber);
         System.out.println(PiToCompare);
+        System.out.println(String.format("This Pi is accruate up to %s digits", accurate));
         //LinkedList<Double> result = new LinkedList<>();
         //while (number>0){
         //    result.push(number%10);
