@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.util.Scanner;
         
 /**
  *
@@ -24,7 +25,49 @@ public class CalculatePi {
         // for it but it would be nice to be able to run it
         // TODO: complete compare and tack it to the end of the class
         // System.out.println("Hello World!");
-        // initilize denominator
+        Scanner input = new Scanner(System.in);
+        while(true){
+            System.out.println(""
+                    + "1 - Calculate using doubles"
+                    + "2 - Calculate using BigDecimal"
+                    + "Please select which to use or quit, then how many cycles to run");
+            long 
+        }
+    }
+    public static void doubleCalcPi(long amtOfRuns){
+        long startTime = System.nanoTime();
+        double k = 1;
+        // initilize sum
+        double s = 0.0;
+        // init constants
+
+        
+        for (long i=0; i<amtOfRuns; i++) {
+            //System.out.println("test");
+            // even index elements are positive
+            if (i%2==0){
+                s+=(4/k);
+
+            }
+            // odd elements are negative
+            else{
+                s-=(4/k);
+
+            }
+            
+            // denominator is odd
+
+            k+=2;
+        }
+        
+        System.out.println(s);
+        long finishTime = System.nanoTime();
+        double elapsedTime = (finishTime-startTime)/1000000000;
+        String timeTracking = String.format("Elapsed time is %s secconds", elapsedTime);
+        System.out.println(timeTracking);
+        compare(s);
+    }
+    public static void bigDecimalCalcPi(long amtOfRuns){
         long startTime = System.nanoTime();
         //double k = 1;
         BigDecimal k = new BigDecimal(1);
@@ -35,17 +78,17 @@ public class CalculatePi {
         BigDecimal four = new BigDecimal(4);
         BigDecimal two = new BigDecimal(2);
         
-        for (long i=0; i<1000000000L; i++) {
+        for (long i=0; i<amtOfRuns; i++) {
             //System.out.println("test");
             // even index elements are positive
             if (i%2==0){
                 //s+=(4/k);
-                s = s.add(four.divide(k, 50, RoundingMode.CEILING));
+                s = s.add(four.divide(k, 100, RoundingMode.CEILING));
             }
             // odd elements are negative
             else{
                 //s-=(4/k);
-                s = s.subtract(four.divide(k, 50, RoundingMode.CEILING));
+                s = s.subtract(four.divide(k, 100, RoundingMode.CEILING));
             }
             
             // denominator is odd
@@ -58,10 +101,47 @@ public class CalculatePi {
         double elapsedTime = (finishTime-startTime)/1000000000;
         String timeTracking = String.format("Elapsed time is %s secconds", elapsedTime);
         System.out.println(timeTracking);
-        compare(s);
+        compareBigDecimal(s);
     }
-   
-    public static void compare(BigDecimal number) {
+    
+    public static void compare(double number){
+        int accurate = 0;
+        LinkedList<String> originalNumber = new LinkedList<String>();
+        LinkedList<String> PiToCompare = new LinkedList<String>();
+        String toChange = String.valueOf(number);
+        String compareThis = String.format("%.100f", useThisPi);
+        String[] result = toChange.split("");
+        String[] compare = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679".split("");
+        for(String a : result){
+            //pulls each int in line from the resulting number from CalculatePi(@number)
+            //then removes the .
+            if (!".".equals(a)){
+                originalNumber.add(a);
+            }
+        }
+        for(String b : compare){
+            //pulls each int in line from the resulting number from 100 digits of pi
+            //then removes the .
+            if (!".".equals(b)){
+                PiToCompare.add(b);
+            }
+        }
+        for(int x=0;x<originalNumber.size();x++){
+            if(originalNumber.get(x).equals(PiToCompare.get(x))){
+                accurate +=1;
+            }
+            else{
+                break;
+            }
+        }
+        System.out.println(useThisPi);
+        System.out.println(stringUseThisPi);
+        System.out.println(originalNumber);
+        System.out.println(PiToCompare);
+        System.out.println(String.format("This Pi is accruate up to %s digits", accurate));
+    }
+    
+    public static void compareBigDecimal(BigDecimal number) {
         int accurate = 0;
         LinkedList<String> originalNumber = new LinkedList<String>();
         LinkedList<String> PiToCompare = new LinkedList<String>();
