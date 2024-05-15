@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.calculatepi;
+package msystem;
 
 import java.util.LinkedList;
 import java.math.BigDecimal;
@@ -26,12 +26,30 @@ public class CalculatePi {
         // TODO: complete compare and tack it to the end of the class
         // System.out.println("Hello World!");
         Scanner input = new Scanner(System.in);
+        long userInputCycles;
+        String userInputRun;
         while(true){
             System.out.println(""
-                    + "1 - Calculate using doubles"
-                    + "2 - Calculate using BigDecimal"
+                    + "1 - Calculate using doubles\n"
+                    + "2 - Calculate using BigDecimal\n"
                     + "Please select which to use or quit, then how many cycles to run");
-            long 
+            userInputRun = input.nextLine();
+            switch(userInputRun){
+                case "1":
+                    System.out.println("Selected double calulation, please enter the amount of cycles to run:");
+                    userInputCycles = Long.parseLong(input.nextLine());
+                    doubleCalcPi(userInputCycles);
+                    break;
+                case "2":
+                    System.out.println("Selected Big Decimal calulation, please enter the amount of cycles to run:");
+                    userInputCycles = Long.parseLong(input.nextLine());
+                    break;
+                default:
+                    System.exit(0);
+            }
+            //int userInputRun = Integer.parseInt(input.nextLine());
+            
+            
         }
     }
     public static void doubleCalcPi(long amtOfRuns){
