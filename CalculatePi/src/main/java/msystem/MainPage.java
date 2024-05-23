@@ -4,6 +4,9 @@
  */
 package msystem;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.AttributeSet;
@@ -17,12 +20,15 @@ import msystem.CalculatePi;
  * @author never
  */
 public class MainPage extends javax.swing.JFrame {
-
+    boolean initStyle = false;
+    
     /**
      * Creates new form test
      */
     public MainPage() {
         initComponents();
+        ArrayList<Color> colorList = new ArrayList<Color>();
+        Collections.addAll(colorList, Color.red, Color.blue, Color.green);
         //CalculatePi.doubleCalcPi(1000);
     }
 
@@ -138,15 +144,9 @@ public class MainPage extends javax.swing.JFrame {
 
     private void btnRunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRunMouseClicked
         // TODO add your handling code here:
-
-        StyledDocument doc = txtpnComparison.getStyledDocument();
-        Style style = txtpnComparison.addStyle("work damnit", null);
-        StyleConstants.setForeground(style, Color.red);
         
-        try{ doc.insertString(doc.getLength(), "Test", style); }
-        catch(Exception e){System.out.println("MainPage-btnRunMouseClicked" + e);}
-        
-        
+        clearTextBox();
+        textStyleChange("hello");
     }//GEN-LAST:event_btnRunMouseClicked
 
     /**
@@ -183,6 +183,20 @@ public class MainPage extends javax.swing.JFrame {
                 new MainPage().setVisible(true);
             }
         });
+    }
+    
+    private void textStyleChange(String textInput){
+        
+        StyledDocument doc = txtpnComparison.getStyledDocument();
+        Style style = txtpnComparison.addStyle("work damnit", null);
+        
+        StyleConstants.setForeground(style, Color.red);
+        
+        try{ doc.insertString(doc.getLength(), textInput, style); }
+        catch(Exception e){System.out.println("MainPage-btnRunMouseClicked" + e);}
+    }
+    private void clearTextBox(){
+        txtpnComparison.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
