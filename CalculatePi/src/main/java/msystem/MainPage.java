@@ -15,12 +15,17 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import msystem.CalculatePi;
+import java.util.Random;
+
 /**
  *
  * @author never
  */
 public class MainPage extends javax.swing.JFrame {
     boolean initStyle = false;
+    int textRandNumber;
+    int colorRandNumber;
+    
     
     /**
      * Creates new form test
@@ -28,7 +33,8 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage() {
         initComponents();
         ArrayList<Color> colorList = new ArrayList<Color>();
-        Collections.addAll(colorList, Color.red, Color.blue, Color.green);
+        //Collections.addAll(colorList, Color.red, Color.blue, Color.green);
+        
         //CalculatePi.doubleCalcPi(1000);
     }
 
@@ -68,7 +74,7 @@ public class MainPage extends javax.swing.JFrame {
 
         txtNumberOfRuns.setText("1000000");
 
-        txtpnComparison.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        txtpnComparison.setFont(new java.awt.Font("Cascadia Code", 1, 14)); // NOI18N
         txtpnComparison.setText("12345678901234567890123456789012345678901234567890");
         txtpnComparison.setFocusable(false);
         jScrollPane1.setViewportView(txtpnComparison);
@@ -144,9 +150,28 @@ public class MainPage extends javax.swing.JFrame {
 
     private void btnRunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRunMouseClicked
         // TODO add your handling code here:
-        
+        Random rand = new Random();
         clearTextBox();
-        textStyleChange("hello");
+        textRandNumber = rand.nextInt(100);
+        for (int x =0;x<100;x++){
+            colorRandNumber = rand.nextInt(1, 4);
+            System.out.println(colorRandNumber);
+            switch (colorRandNumber){
+            case 1:
+                textStyleChange(String.format("%d", rand.nextInt(10)), Color.red);
+                break;
+            case 2:
+                textStyleChange(String.format("%d", rand.nextInt(10)), Color.blue);
+                break;
+            case 3:
+                textStyleChange(String.format("%d", rand.nextInt(10)), Color.GREEN);
+                break;
+            default:
+                textStyleChange(String.format("A"), Color.green);
+            }
+            
+        }
+        textStyleChange("hello", Color.blue);
     }//GEN-LAST:event_btnRunMouseClicked
 
     /**
@@ -185,12 +210,12 @@ public class MainPage extends javax.swing.JFrame {
         });
     }
     
-    private void textStyleChange(String textInput){
+    private void textStyleChange(String textInput, Color color){
         
         StyledDocument doc = txtpnComparison.getStyledDocument();
         Style style = txtpnComparison.addStyle("work damnit", null);
         
-        StyleConstants.setForeground(style, Color.red);
+        StyleConstants.setForeground(style, color);
         
         try{ doc.insertString(doc.getLength(), textInput, style); }
         catch(Exception e){System.out.println("MainPage-btnRunMouseClicked" + e);}
