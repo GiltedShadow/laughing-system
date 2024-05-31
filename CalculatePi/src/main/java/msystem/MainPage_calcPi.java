@@ -21,7 +21,7 @@ import java.util.Random;
  *
  * @author never
  */
-public class MainPage extends javax.swing.JFrame {
+public class MainPage_calcPi extends javax.swing.JFrame {
     boolean initStyle = false;
     int textRandNumber;
     int colorRandNumber;
@@ -30,7 +30,7 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form test
      */
-    public MainPage() {
+    public MainPage_calcPi() {
         initComponents();
         ArrayList<Color> colorList = new ArrayList<Color>();
         //Collections.addAll(colorList, Color.red, Color.blue, Color.green);
@@ -152,24 +152,31 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         Random rand = new Random();
         clearTextBox();
-        textRandNumber = rand.nextInt(100);
-        for (int x =0;x<100;x++){
-            colorRandNumber = rand.nextInt(1, 4);
-            System.out.println(colorRandNumber);
-            switch (colorRandNumber){
-            case 1:
-                textStyleChange(String.format("%d", rand.nextInt(10)), Color.red);
-                break;
-            case 2:
-                textStyleChange(String.format("%d", rand.nextInt(10)), Color.blue);
-                break;
-            case 3:
-                textStyleChange(String.format("%d", rand.nextInt(10)), Color.GREEN);
-                break;
-            default:
-                textStyleChange(String.format("A"), Color.green);
-            }
-            
+        if(txtNumberOfRuns.getText().toLowerCase().equals("test")){
+            textRandNumber = rand.nextInt(100);
+            for (int x =0;x<100;x++){
+                colorRandNumber = rand.nextInt(1, 4);
+                System.out.println(colorRandNumber);
+                switch (colorRandNumber){
+                    case 1:
+                        textStyleChange(String.format("%d", rand.nextInt(10)), Color.red);
+                        break;
+                    case 2:
+                        textStyleChange(String.format("%d", rand.nextInt(10)), Color.blue);
+                        break;
+                    case 3:
+                        textStyleChange(String.format("%d", rand.nextInt(10)), Color.GREEN);
+                        break;
+                    default:
+                        textStyleChange(String.format("A"), Color.green);
+                }
+            }   
+        }
+        else if(rdbtnDoubleProcess.isSelected()){
+            CalculatePi.doubleCalcPi(Long.parseLong(txtNumberOfRuns.getText()));
+        }
+        else{
+            CalculatePi.bigDecimalCalcPi(Long.parseLong(txtNumberOfRuns.getText()));
         }
         textStyleChange("hello", Color.blue);
     }//GEN-LAST:event_btnRunMouseClicked
@@ -191,21 +198,23 @@ public class MainPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPage_calcPi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPage_calcPi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPage_calcPi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainPage_calcPi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainPage().setVisible(true);
+                new MainPage_calcPi().setVisible(true);
             }
         });
     }
