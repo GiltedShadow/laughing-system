@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package msystem;
+package cPi;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +14,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
-import msystem.CalculatePi;
+import cPi.CalculatePi;
 import java.util.Random;
 
 /**
@@ -88,7 +88,7 @@ public class MainPage_calcPi extends javax.swing.JFrame {
             }
         });
 
-        lblAccuracy.setText("This is accurate to the nnth digit");
+        lblAccuracy.setText("This is accurate to the n digits");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,7 +114,7 @@ public class MainPage_calcPi extends javax.swing.JFrame {
                         .addComponent(lblCompare)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblAccuracy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRun)))
                 .addContainerGap())
         );
@@ -237,7 +237,7 @@ public class MainPage_calcPi extends javax.swing.JFrame {
     private javax.swing.JButton btnRun;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblAccuracy;
+    public static javax.swing.JLabel lblAccuracy;
     private javax.swing.JLabel lblCompare;
     private javax.swing.JLabel lblCycles;
     private javax.swing.JLabel lblMainTitle;

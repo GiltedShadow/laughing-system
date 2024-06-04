@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package msystem;
+package cPi;
 
 import java.util.LinkedList;
 import java.math.BigDecimal;
@@ -18,8 +18,16 @@ import java.util.Scanner;
  * then compare to see how many digits are accurate
  */
 public class CalculatePi {
-    public static BigDecimal useThisPi = new BigDecimal(3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
+    public static int accurate;
+    
+    public static LinkedList<String> originalNumber = new LinkedList<String>();
+    public static LinkedList<String> PiToCompare = new LinkedList<String>();
+    
+    private static BigDecimal useThisPi = new BigDecimal(3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
     private static String stringUseThisPi = String.format("%.100f", 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679);
+    
+    public static String[] compare = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679".split("");
+    
     public static void main(String[] args) {
         // TODO: add time keeping, Java is already leagues ahead of Python so theres not much need
         // for it but it would be nice to be able to run it
@@ -123,14 +131,20 @@ public class CalculatePi {
     }
     
     public static void compare(double number){
-        int accurate = 0;
-        LinkedList<String> originalNumber = new LinkedList<String>();
-        LinkedList<String> PiToCompare = new LinkedList<String>();
-        String toChange = String.valueOf(number);
-        String compareThis = String.format("%.100f", useThisPi);
-        String[] result = toChange.split("");
-        String[] compare = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679".split("");
-        for(String a : result){
+        //int accurate = 0;
+        //LinkedList<String> originalNumber = new LinkedList<String>();
+        //LinkedList<String> PiToCompare = new LinkedList<String>();
+        
+        //String toChange = String.valueOf(number); // pulling passed arg into a compable setup
+        //String compareThis = String.format("%.100f", useThisPi); // is this even used anymore?
+        //String[] result = toChange.split(""); //  this and the previous line for toChange can be pulled into one line
+
+        //String[] result = String.valueOf(number).split(""); // pulling number into comparible string[]
+        //String[] compare = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679".split("");
+        originalNumber.clear();
+        PiToCompare.clear();
+        accurate = 0;
+        for(String a : String.valueOf(number).split("")){
             //pulls each int in line from the resulting number from CalculatePi(@number)
             //then removes the .
             if (!".".equals(a)){
@@ -157,12 +171,15 @@ public class CalculatePi {
         System.out.println(originalNumber);
         System.out.println(PiToCompare);
         System.out.println(String.format("This Pi is accruate up to %s digits", accurate));
+        MainPage_calcPi.lblAccuracy.setText(String.format("This is accurate to %s digits", accurate));
     }
     
     public static void compareBigDecimal(BigDecimal number) {
-        int accurate = 0;
-        LinkedList<String> originalNumber = new LinkedList<String>();
-        LinkedList<String> PiToCompare = new LinkedList<String>();
+        //int accurate = 0;      
+        //LinkedList<String> originalNumber = new LinkedList<String>();
+        //LinkedList<String> PiToCompare = new LinkedList<String>();
+        
+        accurate = 0;
         String toChange = String.valueOf(number);
         String compareThis = String.format("%.100f", useThisPi);
         String[] result = toChange.split("");
