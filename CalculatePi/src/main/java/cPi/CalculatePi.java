@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class CalculatePi {
     public static int accurate;
-    
+    public static double elapsedTime;
     public static LinkedList<String> originalNumber = new LinkedList<String>();
     public static LinkedList<String> PiToCompare = new LinkedList<String>();
     
@@ -88,7 +88,7 @@ public class CalculatePi {
         
         System.out.println(s);
         long finishTime = System.nanoTime();
-        double elapsedTime = (finishTime-startTime)/1000000000;
+        elapsedTime = (finishTime-startTime)/1000000000;
         String timeTracking = String.format("Elapsed time is %s secconds", elapsedTime);
         System.out.println(timeTracking);
         compare(s);
@@ -124,7 +124,7 @@ public class CalculatePi {
         
         System.out.println(s);
         long finishTime = System.nanoTime();
-        double elapsedTime = (finishTime-startTime)/1000000000;
+        elapsedTime = (finishTime-startTime)/1000000000;
         String timeTracking = String.format("Elapsed time is %s secconds", elapsedTime);
         System.out.println(timeTracking);
         compareBigDecimal(s);
@@ -171,20 +171,21 @@ public class CalculatePi {
         System.out.println(originalNumber);
         System.out.println(PiToCompare);
         System.out.println(String.format("This Pi is accruate up to %s digits", accurate));
-        MainPage_calcPi.lblAccuracy.setText(String.format("This is accurate to %s digits", accurate));
+        MainPage_calcPi.lblAccuracy.setText(String.format("This is accurate to %s digits and took %s seconds", accurate, elapsedTime));
     }
     
     public static void compareBigDecimal(BigDecimal number) {
         //int accurate = 0;      
         //LinkedList<String> originalNumber = new LinkedList<String>();
         //LinkedList<String> PiToCompare = new LinkedList<String>();
-        
+        originalNumber.clear();
+        PiToCompare.clear();
         accurate = 0;
-        String toChange = String.valueOf(number);
-        String compareThis = String.format("%.100f", useThisPi);
-        String[] result = toChange.split("");
-        String[] compare = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679".split("");
-        for(String a : result){
+        //String toChange = String.valueOf(number);
+        //String compareThis = String.format("%.100f", useThisPi);
+        //String[] result = toChange.split("");
+        //String[] compare = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679".split("");
+        for(String a : String.valueOf(number).split("")){
             //pulls each int in line from the resulting number from CalculatePi(@number)
             //then removes the .
             if (!".".equals(a)){
@@ -211,6 +212,8 @@ public class CalculatePi {
         System.out.println(originalNumber);
         System.out.println(PiToCompare);
         System.out.println(String.format("This Pi is accruate up to %s digits", accurate));
+        MainPage_calcPi.lblAccuracy.setText(String.format("This is accurate to %s digits and took %s seconds", accurate, elapsedTime));
+
         //LinkedList<Double> result = new LinkedList<>();
         //while (number>0){
         //    result.push(number%10);

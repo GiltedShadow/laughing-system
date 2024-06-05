@@ -48,6 +48,7 @@ public class MainPage_calcPi extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
         lblMainTitle = new javax.swing.JLabel();
         rdbtnDoubleProcess = new javax.swing.JRadioButton();
         rdbtnBigDecimalProcess = new javax.swing.JRadioButton();
@@ -58,6 +59,8 @@ public class MainPage_calcPi extends javax.swing.JFrame {
         lblCompare = new javax.swing.JLabel();
         btnRun = new javax.swing.JButton();
         lblAccuracy = new javax.swing.JLabel();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,8 +102,11 @@ public class MainPage_calcPi extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rdbtnBigDecimalProcess)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdbtnBigDecimalProcess)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRun))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(rdbtnDoubleProcess)
@@ -108,14 +114,12 @@ public class MainPage_calcPi extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblCycles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNumberOfRuns))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCompare)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblAccuracy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRun)))
+                                    .addComponent(txtNumberOfRuns)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCompare)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblAccuracy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -133,15 +137,15 @@ public class MainPage_calcPi extends javax.swing.JFrame {
                     .addComponent(rdbtnDoubleProcess)
                     .addComponent(txtNumberOfRuns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rdbtnBigDecimalProcess)
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCompare)
-                        .addComponent(lblAccuracy))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdbtnBigDecimalProcess)
                     .addComponent(btnRun))
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCompare)
+                    .addComponent(lblAccuracy))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -178,7 +182,26 @@ public class MainPage_calcPi extends javax.swing.JFrame {
         else{
             CalculatePi.bigDecimalCalcPi(Long.parseLong(txtNumberOfRuns.getText()));
         }
-        textStyleChange("hello", Color.blue);
+        textStyleChange("hello\n", Color.blue);
+        for (int x = 0;x < CalculatePi.accurate; x++){
+            textStyleChange(CalculatePi.originalNumber.get(x), Color.blue);
+            if(x == 0){
+                textStyleChange(".", Color.black);
+            }
+        }
+        for (int x = CalculatePi.accurate; x < CalculatePi.originalNumber.size(); x++){
+            textStyleChange(CalculatePi.originalNumber.get(x), Color.red);
+            if (x == CalculatePi.originalNumber.size()-1){
+                textStyleChange("\n", Color.black);
+            }
+        }
+        for (int x = 0; x < CalculatePi.originalNumber.size(); x++){
+            textStyleChange(CalculatePi.PiToCompare.get(x), Color.gray);
+            if(x == 0){
+                textStyleChange(".", Color.black);
+            }
+            
+        }
     }//GEN-LAST:event_btnRunMouseClicked
 
     /**
@@ -236,6 +259,7 @@ public class MainPage_calcPi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRun;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblAccuracy;
     private javax.swing.JLabel lblCompare;
